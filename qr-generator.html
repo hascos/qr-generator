@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proxy Connection QR Code Generator</title>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #qrcode {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Proxy Connection QR Code Generator</h1>
+
+    <div class="container">
+        <label for="name">Connection Name:</label>
+        <input type="text" id="name" placeholder="Enter connection name" required>
+
+        <label for="ip">Proxy Server (IP Address):</label>
+        <input type="text" id="ip" placeholder="Enter proxy server IP address" required>
+
+        <label for="port">Port:</label>
+        <input type="number" id="port" placeholder="Enter port number" required>
+
+        <button onclick="generateQRCode()">Generate QR Code</button>
+
+        <div id="qrcode"></div>
+    </div>
+
+    <script>
+        function generateQRCode() {
+            // Get the input values
+            var name = document.getElementById("name").value;
+            var ip = document.getElementById("ip").value;
+            var port = document.getElementById("port").value;
+
+            // Validate input fields
+            if (name === "" || ip === "" || port === "") {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            // Format the string for the QR code: "name\nip_address\nport"
+            var qrContent = name + "\n" + ip + "\n" + port;
+
+            // Clear any previous QR code
+            document.getElementById("qrcode").innerHTML = "";
+
+            // Generate the QR code
+            var qrcode = new QRCode(document.getElementById("qrcode"), {
+                text: qrContent,
+                width: 200,
+                height: 200,
+            });
+        }
+    </script>
+
+</body>
+</html>
